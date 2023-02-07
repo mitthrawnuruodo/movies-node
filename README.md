@@ -7,7 +7,7 @@ Example-project for making a very basic NodeJS + MongoDB app.
 1. Add start-script to package.json: `"start": "node app.js"`
 1. Sign up for [MongoDB Atlas](https://www.mongodb.com/atlas) with GitHub (or your preferred method).
 1. Add starter code to app.js
-    * RReplace `<username>`, `<password>`, and `<cluster.hash>` with your own, you'll find the uri (sans Password) under Database Deployments > Your Cluster > Connect > Connect your application):
+    * Replace `<username>`, `<password>`, and `<cluster.hash>` with your own, you'll find the `uri` (sans Password) on Atlas under `Database Deployments` > `<Your Cluster>` > `Connect` > `Connect your application`:
 ```js
 const { MongoClient, ServerApiVersion } = require('mongodb');
 
