@@ -1,29 +1,8 @@
+const { MongoClient, ServerApiVersion } = require('mongodb');
 const http = require('http');
-let url = require('url');
 
-//const { MongoClient, ServerApiVersion } = require('mongodb');
-//const uri = "mongodb+srv://testuser:enkelt%40passord@cluster0.aar6pkz.mongodb.net/?retryWrites=true&w=majority";
-//const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
-
-const hostname = '127.0.0.1';
-const port = 3000;
-
-const server = http.createServer((req, res) => {
-    let q = url.parse(req.url, true);
-    let m = url.parse(req.method, true);
-
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'application/json');
-
-    res.write(JSON.stringify({code: "200-ish", replace: "the good stuff", q, m}));
-
-    res.end();
-});
-
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
-});
-
+const uri = "mongodb+srv://testuser:enkelt%40passord@cluster0.aar6pkz.mongodb.net/?retryWrites=true&w=majority";
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
 async function run() {
     try {
@@ -50,6 +29,17 @@ async function run() {
         const result = await col.updateOne(filter, movie, options);
         console.log(`${result.matchedCount} document(s) matched the filter`);
 
+        const query = {};
+        const opt = {};
+        const cursor = col.find(query, opt);
+        
+        let results = await cursor.toArray();
+        console.log(results);
+        if (results.length > 0) {
+            makeJSON(results);    
+        } else {
+            makeJSON({});  
+        }
     } catch (err) {
         console.log(err.stack);
     }
@@ -58,5 +48,21 @@ async function run() {
     }
 }
 
-//run().catch(console.dir);
+run().catch(console.dir);
+
+function makeJSON (content) {
+    const hostname = '127.0.0.1';
+    const port = 3000;
+    
+    const server = http.createServer((req, res) => {
+      res.statusCode = 200;
+      res.setHeader('Content-Type', 'application/json');
+      res.write(JSON.stringify(content));
+      res.end();
+    });
+    
+    server.listen(port, hostname, () => {
+      console.log(`Server running at http://${hostname}:${port}/`);
+    });
+}
 
