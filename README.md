@@ -19,13 +19,7 @@ Example-project for making a very basic NodeJS + MongoDB app.
             await client.connect();
             console.log("Connected correctly to server");
             // Do stuff here
-            // Connect to this database, make it if it doesn't exist
-            const db = client.db("node_testing");
-            // Use this collection, make it if it doesn't exist
-            const col = db.collection("movies");
-
-
-
+            
         } catch (err) {
             console.log(err.stack);
         }
@@ -40,7 +34,7 @@ Example-project for making a very basic NodeJS + MongoDB app.
     * Make sure you get `Connected correctly to server` on the console
 1. Add database details: 
     ```js
-                // Do stuff here
+            // Do stuff here
             // Connect to this database, make it if it doesn't exist
             const db = client.db("node_testing");
             // Use this collection, make it if it doesn't exist

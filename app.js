@@ -8,6 +8,10 @@ async function run() {
         await client.connect();
         console.log("Connected correctly to server");
         // Do stuff here
+        // Connect to this database, make it if it doesn't exist
+        const db = client.db("node_testing");
+        // Use this collection, make it if it doesn't exist
+        const col = db.collection("movies");
 
     } catch (err) {
         console.log(err.stack);
