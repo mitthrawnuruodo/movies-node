@@ -8,16 +8,25 @@ let url = require('url');
 const hostname = '127.0.0.1';
 const port = 3000;
 
-const server = http.createServer((req, res) => {
-    let q = url.parse(req.url, true);
-    let m = url.parse(req.method, true);
-
+let sendPage = (res, reqUrlString, method, body) => {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'application/json');
-
-    res.write(JSON.stringify({code: "200-ish", replace: "the good stuff", q, m}));
-
+    res.write(JSON.stringify({reqUrlString, method, body}));
     res.end();
+}
+
+const server = http.createServer((req, res) => {
+    let reqUrlString = req.url;
+    let method = req.method;
+    if (method == "POST") {
+        let body = [];
+        req.on('error', (err) => { console.error(err); })
+           .on('data', (chunk) => { body.push(chunk); })
+           .on('end', () => { body = Buffer.concat(body).toString(); sendPage(res, reqUrlString, method, body) });
+        
+    } else {
+        sendPage(res, reqUrlString, method, "GET")
+    }
 });
 
 server.listen(port, hostname, () => {
