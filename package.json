@@ -1,0 +1,24 @@
+{
+  "name": "movies-node",
+  "version": "1.0.0",
+  "description": "Example-project for making a very basic NodeJS + MongoDB app.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mitthrawnuruodo/movies-node.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mitthrawnuruodo/movies-node/issues"
+  },
+  "homepage": "https://github.com/mitthrawnuruodo/movies-node#readme",
+  "devDependencies": {
+    "mongodb": "^5.0.0"
+  }
+}
