@@ -3,6 +3,7 @@
 Example-project for making a very basic NodeJS + MongoDB app.
 
 1. Initialize Node: `npm init -y`
+    * Or re-initialize (if cloned/forked) with `npm i`, and skip 2 and 3.
 1. Install mongodb: `npm i mongodb --save-dev`
 1. Add start-script to package.json: `"start": "node app.js"`
 1. Sign up for [MongoDB Atlas](https://www.mongodb.com/atlas) with GitHub (or your preferred method), and make a cluster and (at least one DB user)
