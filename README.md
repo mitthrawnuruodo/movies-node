@@ -60,3 +60,9 @@ Example-project for making a very basic NodeJS + MongoDB app.
     ```
 1. Re-run, and check Atlas to see the new (?) Database `node_testing` with a new (?) collection `movies` that contains (at least) one movie.
 1. Now, we'll make some JSON output.
+
+
+---
+
+Tip: You can use [Postman](https://www.postman.com/product/what-is-postman/) to send post requests to localhost: 
+![](./resources/postman-localhost.png)
