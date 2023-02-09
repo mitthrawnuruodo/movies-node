@@ -135,7 +135,7 @@ This is a barebone example not providing any security whatsoever, and should onl
     const uri = "mongodb+srv://<username>:<password>@<cluster.hash>.mongodb.net/?retryWrites=true&w=majority";
     const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
     ```
-    > **Again**: Replace `<username>`, `<password>`, and `<cluster.hash>` with your own non-admin database user (that can be discarded), for this project, or protect your login-URI.
+    > **Again**: Replace `<username>`, `<password>`, and `<cluster.hash>` with your own non-admin database user (that can be discarded), for this project, or protect your login-URI. Easiest is just to copy/paste from the listMovies.js file?
 1. In the server function, change the list:
     ```js
         } else if (path === "/list") {
