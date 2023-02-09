@@ -6,7 +6,7 @@ This is a barebone example not providing any security whatsoever, and should onl
 
 ## Rigging
 
-1. Make a new GitHub repo, and clone it to your local machine
+1. Make a new public GitHub repo, and clone it to your local machine
 1. In the repo/projects folder, initialize Node: `npm init -y`
     * Or re-initialize (if alreadycloned or forked) with `npm i`, and skip 3 and 4.
 1. Install mongodb: `npm i mongodb --save-dev`
@@ -116,6 +116,7 @@ This is a barebone example not providing any security whatsoever, and should onl
             // Catch all for un-recognized paths
             sendData (res, { 404: path});
         }
+    });
     ```
 1. And code for starting the server: 
     ```js
