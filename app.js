@@ -23,8 +23,11 @@ const server = http.createServer((req, res) => {
     if (path === "/") {
         sendData (res, "Use endpoints GET /list or POST /add");
     } else if (path === "/list") {
+        // Find and list all movies
         sendData (res, "Will list all movies");
     } else if (path === "/add") {
+        // Check POST data and use update one with upstream set to true 
+        // to insert (or update) movie
         let method = req.method;
         if (method === "POST" || method === "PUT") {
             sendData (res, "Will add movie, if data object is posted correctly");
@@ -32,6 +35,7 @@ const server = http.createServer((req, res) => {
             sendData (res, "You need to use POST (or PUT) here..."); 
         }
     } else {
+        // Catch all for un-recognized paths
         sendData (res, { 404: path});
     }
 });

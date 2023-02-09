@@ -1,12 +1,17 @@
 # Movies NodeJS + MongoDB
 
-Example-project for making a very basic NodeJS + MongoDB app.
+Example-project for making a very basic NodeJS + MongoDB app with and API to a movie database.
+
+## Rigging
 
 1. Initialize Node: `npm init -y`
     * Or re-initialize (if cloned/forked) with `npm i`, and skip 2 and 3.
 1. Install mongodb: `npm i mongodb --save-dev`
 1. Add start-script to package.json: `"start": "node app.js"` (for later use)
 1. Sign up for [MongoDB Atlas](https://www.mongodb.com/atlas) with GitHub (or your preferred method), and make a cluster and (at least one DB user)
+
+## Testing db
+
 1. Before we get started, let's try out the database-connection. Add this starter code to a test file `listMovies.js`:
     ```js
     const { MongoClient, ServerApiVersion } = require('mongodb');
@@ -61,7 +66,9 @@ Example-project for making a very basic NodeJS + MongoDB app.
         console.log(`${result.matchedCount} document(s) matched the filter`);
     ```
 1. Re-run, and check Atlas to see the new (?) Database `node_testing` with a new (?) collection `movies` that contains (at least) one movie: "True Romance"
----
+
+## Making API
+
 1. Now, we'll make a new file `app.js` some JSON output.
 1. Add requirements, and local variables: 
     ```js
@@ -71,7 +78,7 @@ Example-project for making a very basic NodeJS + MongoDB app.
     const hostname = '127.0.0.1';
     const port = 3000;
     ```
-1. Add a function for returning JSON:
+1. Add a function for returning JSON from the `body` parameter:
     ```js
     let sendData = (res, body) => {
         res.statusCode = 200;
@@ -90,8 +97,12 @@ Example-project for making a very basic NodeJS + MongoDB app.
         if (path === "/") {
             sendData (res, "Use endpoints GET /list or POST /add");
         } else if (path === "/list") {
+            // Find and list all movies
             sendData (res, "Will list all movies");
         } else if (path === "/add") {
+            // Check POST data and use update one 
+            // with upstream set to true 
+            // to insert (or update) movie
             let method = req.method;
             if (method === "POST" || method === "PUT") {
                 sendData (res, "Will add movie, if data object is posted correctly");
@@ -99,9 +110,9 @@ Example-project for making a very basic NodeJS + MongoDB app.
                 sendData (res, "You need to use POST (or PUT) here..."); 
             }
         } else {
+            // Catch all for un-recognized paths
             sendData (res, { 404: path});
         }
-    });
     ```
 1. And code for starting the server: 
     ```js
