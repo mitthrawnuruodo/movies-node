@@ -234,6 +234,8 @@ Example-project for making a very basic NodeJS + MongoDB app providing an API to
 
 ## Publishing [^DeplyNodeToVercel]
 
+[^DeplyNodeToVercel]: [Deploy a Serverless Node.js application to Vercel in 5 minutes](https://dev.to/adafycheng/deploy-nodejs-application-to-vercel-in-5-minutes-171m)
+
 [Vercel](https://vercel.com/home) is the platform for frontend developers, providing the speed and reliability innovators need to create at the moment of inspiration.
 
 1. [Sign up on Vercel](https://vercel.com/signup) using GitHub (or your preferred method)
@@ -256,6 +258,4 @@ Example-project for making a very basic NodeJS + MongoDB app providing an API to
 1. On Atlas, add the IP 0.0.0.0/0 to the Network Access IP Address List, to allow Vercel to connect [^AtlasVercel]
 1. Now try the listing: https://movies-node.vercel.app/list
 
-[^AtlasVercel]: https://www.mongodb.com/docs/atlas/reference/partner-integrations/vercel/
-
-[^DeplyNodeToVercel]: [Deploy a Serverless Node.js application to Vercel in 5 minutes](https://dev.to/adafycheng/deploy-nodejs-application-to-vercel-in-5-minutes-171m)
+[^AtlasVercel]: [MongoDB Atlas > Integrate with Vercel](https://www.mongodb.com/docs/atlas/reference/partner-integrations/vercel/)
