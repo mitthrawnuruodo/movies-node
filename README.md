@@ -237,7 +237,7 @@ Example-project for making a very basic NodeJS + MongoDB app providing an API to
 [Vercel](https://vercel.com/home) is the platform for frontend developers, providing the speed and reliability innovators need to create at the moment of inspiration.
 
 1. [Sign up on Vercel](https://vercel.com/signup) using GitHub (or your preferred method)
-    > Note, on the first try Vercel just added one of my teams, and I had to choose "+ Add GitHub account" to add my personal reops and not just those from that team.
+    > Note, on the first try Vercel just added one of my teams_, and I had to choose "+ Add GitHub account" to add my personal reops and not just those from that team.
 1. Add a `vercel.json` file to your project: 
     ```json
     {
