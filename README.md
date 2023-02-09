@@ -2,6 +2,8 @@
 
 Example-project for making a very basic NodeJS + MongoDB app providing an API to a movie database, and publish the API on Vercel.
 
+This is a barebone example not providing any security whatsoever, and should only be considered a proof-of-concept.
+
 ## Rigging
 
 1. Make a new GitHub repo, and clone it to your local machine
@@ -122,7 +124,7 @@ Example-project for making a very basic NodeJS + MongoDB app providing an API to
     });
     ```
 1. Now run the app with `npm start`, and test with a few GET and POST requests.
-    > Tip: You can use [Postman](https://www.postman.com/product/what-is-postman/) to send post requests to localhost: 
+1. Use [Postman](https://www.postman.com/product/what-is-postman/) to send post requests to localhost: 
     ![](./resources/postman-localhost.png)
 1. Add DB-connection to app.js: 
     ```js
