@@ -4,12 +4,12 @@ Example-project for making a very basic NodeJS + MongoDB app providing an API to
 
 ## Rigging
 
-1. Make a new GitHub repo and clone it to your local machine
+1. Make a new GitHub repo, and clone it to your local machine
 1. In the repo/projects folder, initialize Node: `npm init -y`
     * Or re-initialize (if alreadycloned or forked) with `npm i`, and skip 3 and 4.
 1. Install mongodb: `npm i mongodb --save-dev`
 1. Add start-script to package.json: `"start": "node app.js"` (for later use)
-1. Sign up for [MongoDB Atlas](https://www.mongodb.com/atlas) with GitHub (or your preferred method), and make a cluster and (at least one DB user)
+1. Sign up for a free [MongoDB Atlas](https://www.mongodb.com/atlas) account with GitHub (or your preferred method), and [make a cluster](https://www.mongodb.com/basics/clusters/mongodb-cluster-setup) and (at least) one DB user.
 
 ## Testing db
 
@@ -256,6 +256,13 @@ Example-project for making a very basic NodeJS + MongoDB app providing an API to
 1. In Vercel, choose "Create New Project"
 1. Import the correct Git Repository
 1. On Atlas, add the IP 0.0.0.0/0 to the Network Access IP Address List, to allow Vercel to connect [^AtlasVercel]
+    ![](./resources/atlas-addIP.png)
+    [^AtlasVercel]: [MongoDB Atlas > Integrate with Vercel](https://www.mongodb.com/docs/atlas/reference/partner-integrations/vercel/)
 1. Now try the listing: https://movies-node.vercel.app/list
+1. You can POST to the vercel.app's /add endpoint using Postman (or another project): 
+    ![](./resources/postman-vercel-post.png)
+1. You can PUT to the vercel.app's /add using Postman:
+    ![](./resources/postman-vercel-put.png)
+1. You can GET a full list using the /list endpoint:
+    ![](./resources/postman-vercel-list.png) 
 
-[^AtlasVercel]: [MongoDB Atlas > Integrate with Vercel](https://www.mongodb.com/docs/atlas/reference/partner-integrations/vercel/)
