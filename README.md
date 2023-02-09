@@ -1,6 +1,6 @@
 # Movies NodeJS + MongoDB
 
-Example-project for making a very basic NodeJS + MongoDB app with and API to a movie database.
+Example-project for making a very basic NodeJS + MongoDB app providing an API to a movie database.
 
 ## Rigging
 
