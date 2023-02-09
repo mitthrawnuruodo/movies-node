@@ -1,11 +1,12 @@
-# Movies NodeJS + MongoDB
+# Movies API using NodeJS + MongoDB + Vercel
 
-Example-project for making a very basic NodeJS + MongoDB app providing an API to a movie database.
+Example-project for making a very basic NodeJS + MongoDB app providing an API to a movie database, and publish the API on Vercel.
 
 ## Rigging
 
-1. Initialize Node: `npm init -y`
-    * Or re-initialize (if cloned/forked) with `npm i`, and skip 2 and 3.
+1. Make a new GitHub repo and clone it to your local machine
+1. In the repo/projects folder, initialize Node: `npm init -y`
+    * Or re-initialize (if alreadycloned or forked) with `npm i`, and skip 3 and 4.
 1. Install mongodb: `npm i mongodb --save-dev`
 1. Add start-script to package.json: `"start": "node app.js"` (for later use)
 1. Sign up for [MongoDB Atlas](https://www.mongodb.com/atlas) with GitHub (or your preferred method), and make a cluster and (at least one DB user)
@@ -231,10 +232,12 @@ Example-project for making a very basic NodeJS + MongoDB app providing an API to
     ![](./resources/list-3.png)
 
 
-## Publishing
+## Publishing [^DeplyNodeToVercel]
+
+[Vercel](https://vercel.com/home) is the platform for frontend developers, providing the speed and reliability innovators need to create at the moment of inspiration.
 
 1. [Sign up on Vercel](https://vercel.com/signup) using GitHub (or your preferred method)
-    > Vercel is the platform for frontend developers, providing the speed and reliability innovators need to create at the moment of inspiration.
+    > Note, on the first try Vercel just added one of my teams, and I had to choose "+ Add GitHub account" to add my personal reops and not just those from that team.
 1. Add a `vercel.json` file to your project: 
     ```json
     {
@@ -248,3 +251,11 @@ Example-project for making a very basic NodeJS + MongoDB app providing an API to
         ]
     }
     ```
+1. In Vercel, choose "Create New Project"
+1. Import the correct Git Repository
+1. On Atlas, add the IP 0.0.0.0/0 to the Network Access IP Address List, to allow Vercel to connect [^AtlasVercel]
+1. Now try the listing: https://movies-node.vercel.app/list
+
+[^AtlasVercel]: https://www.mongodb.com/docs/atlas/reference/partner-integrations/vercel/
+
+[^DeplyNodeToVercel]: [Deploy a Serverless Node.js application to Vercel in 5 minutes](https://dev.to/adafycheng/deploy-nodejs-application-to-vercel-in-5-minutes-171m)
