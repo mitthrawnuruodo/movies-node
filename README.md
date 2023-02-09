@@ -131,7 +131,7 @@ Example-project for making a very basic NodeJS + MongoDB app providing an API to
     const uri = "mongodb+srv://<username>:<password>@<cluster.hash>.mongodb.net/?retryWrites=true&w=majority";
     const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
     ```
-    > Again: Replace `<username>`, `<password>`, and `<cluster.hash>` with your own non-admin database user (that can be discarded), for this project, or protect your login-URI.
+    > **Again**: Replace `<username>`, `<password>`, and `<cluster.hash>` with your own non-admin database user (that can be discarded), for this project, or protect your login-URI.
 1. In the server function, change the list:
     ```js
         } else if (path === "/list") {
@@ -174,5 +174,77 @@ Example-project for making a very basic NodeJS + MongoDB app providing an API to
         finally {
             await client.close();
         }
+    }
+    ```
+1. Now re-run app and go to the listing: http://127.0.0.1:3000/list
+    ![](./resources/list-1.png)
+1. In the server function, change the code for "add", to het posted data: 
+    ```js
+        } else if (path === "/add") {
+            // Check POST data and use update one 
+            // with upstream set to true 
+            // to insert (or update) movie
+            let method = req.method;
+            if (method === "POST" || method === "PUT") {
+                console.log ("Will add movie, if data object is posted correctly");
+                let body = [];
+                req .on('error', (err) => { console.error(err); })
+                    .on('data', (chunk) => { body.push(chunk); })
+                    .on('end', () => { 
+                        body = JSON.parse(Buffer.concat(body).toString()); 
+                        connectToDB(res, "add", body);
+                    });
+            } else {
+                sendData (res, "You need to use POST (or PUT) here..."); 
+            }
+        }
+    ```
+    > Note you should handle the error and also check to see if the posted data (body) conforms to your database scheme
+1. Now add code to the "add" part of the `connectToDB` function:
+    ```js
+            } else if (method === "add") {
+                const filter = { title: body.title };
+                const movie = {
+                    $set: {
+                        title: body.title, 
+                        year: body.year, 
+                        imdb_url: body.imdb_url,
+                        rt_url: body.rt_url,
+                        rating: body.rating
+                    }
+                };
+                const options = { upsert: true };
+                const result = await col.updateOne(filter, movie, options);
+                //console.log(`${result.matchedCount} document(s) matched the filter`);
+                sendData(res, `${result.matchedCount} document(s) matched the filter`);
+            }
+    ```
+1. Now you can POST (via Postman or your own app) to the /add endpoint: 
+    ![](./resources/postman-post.png)
+    > Note, if it replies with "0 document(s) matched the filter" then a document has been created; if it replies with "1 document(s) matched the filter" then a document has been updated 
+1. Or use PUT to the /add endpoint: 
+    ![](./resources/postman-put.png)
+    > Note, you could make a distinction between POST and PUT, where - for put - you use the `_id` object for filtering to allow "duplicate titles", and - for post - just use `insertOne()` and not `updateOne()`.
+1. Now you can list (at least) 3 documents, via Atlas:
+    ![](./resources/list-2.png)
+    ...or your listing endpoint: 
+    ![](./resources/list-3.png)
+
+
+## Publishing
+
+1. [Sign up on Vercel](https://vercel.com/signup) using GitHub (or your preferred method)
+    > Vercel is the platform for frontend developers, providing the speed and reliability innovators need to create at the moment of inspiration.
+1. Add a `vercel.json` file to your project: 
+    ```json
+    {
+        "version": 2,
+        "name": "movies",
+        "builds": [
+            { "src": "app.js", "use": "@vercel/node" }
+        ],
+        "routes": [
+            { "src": "/(.*)", "dest": "/app.js" }
+        ]
     }
     ```

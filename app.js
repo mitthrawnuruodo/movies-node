@@ -32,8 +32,13 @@ const server = http.createServer((req, res) => {
         let method = req.method;
         if (method === "POST" || method === "PUT") {
             console.log ("Will add movie, if data object is posted correctly");
-            
-            connectToDB(res, "add", { })
+            let body = [];
+            req .on('error', (err) => { console.error(err); })
+                .on('data', (chunk) => { body.push(chunk); })
+                .on('end', () => { 
+                    body = JSON.parse(Buffer.concat(body).toString()); 
+                    connectToDB(res, "add", body);
+                });
         } else {
             sendData (res, "You need to use POST (or PUT) here..."); 
         }
@@ -52,9 +57,9 @@ async function connectToDB (res, method, body) {
     try {
         await client.connect();
         // console.log("Connected correctly to server");
-        // Connect to this database, make it if it doesn't exist
+        // Connect to this database
         const db = client.db("node_testing");
-        // Use this collection, make it if it doesn't exist
+        // Use this collection
         const col = db.collection("movies");
         
         // Do stuff here
@@ -93,4 +98,3 @@ async function connectToDB (res, method, body) {
         await client.close();
     }
 }
-
