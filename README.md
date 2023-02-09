@@ -103,6 +103,12 @@ Example-project for making a very basic NodeJS + MongoDB app.
         }
     });
     ```
+1. And code for starting the server: 
+    ```js
+    server.listen(port, hostname, () => {
+        console.log(`Server running at http://${hostname}:${port}/`);
+    });
+    ```
 1. Now run the app with `npm start`, and test with a few GET and POST requests.
     > Tip: You can use [Postman](https://www.postman.com/product/what-is-postman/) to send post requests to localhost: 
     ![](./resources/postman-localhost.png)

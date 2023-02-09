@@ -36,6 +36,11 @@ const server = http.createServer((req, res) => {
     }
 });
 
+server.listen(port, hostname, () => {
+    console.log(`Server running at http://${hostname}:${port}/`);
+});
+  
+
     // let method = req.method;
     // if (method == "POST") {
     //     let body = [];
@@ -51,9 +56,6 @@ const server = http.createServer((req, res) => {
     //     sendPage(res, {reqUrlString, method, a:"GET"});
     // }
 
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
-});
 
 
 async function run() {
