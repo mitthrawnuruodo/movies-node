@@ -123,4 +123,56 @@ Example-project for making a very basic NodeJS + MongoDB app providing an API to
 1. Now run the app with `npm start`, and test with a few GET and POST requests.
     > Tip: You can use [Postman](https://www.postman.com/product/what-is-postman/) to send post requests to localhost: 
     ![](./resources/postman-localhost.png)
-1. 
+1. Add DB-connection to app.js: 
+    ```js
+    const http = require('http');
+    let url = require('url');
+    const { MongoClient, ServerApiVersion } = require('mongodb');
+    const uri = "mongodb+srv://<username>:<password>@<cluster.hash>.mongodb.net/?retryWrites=true&w=majority";
+    const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+    ```
+    > Again: Replace `<username>`, `<password>`, and `<cluster.hash>` with your own non-admin database user (that can be discarded), for this project, or protect your login-URI.
+1. In the server function, change the list:
+    ```js
+        } else if (path === "/list") {
+            // Find and list all movies
+            console.log ("Will list all movies");
+            connectToDB(res, "list", {});
+        } //...
+    ```
+1. Make the `connectToDB` function:
+    ```js
+    async function connectToDB (res, method, body) {
+        console.log ({method, body});
+        try {
+            await client.connect();
+            // console.log("Connected correctly to server");
+            // Connect to this database
+            const db = client.db("node_testing");
+            // Use this collection
+            const col = db.collection("movies");
+            
+            // Do stuff here
+            if (method === "list") {
+                const query = {};
+                const opt = {};
+                const cursor = col.find(query, opt);
+                
+                let results = await cursor.toArray();
+                //console.log(results);
+                if (results.length > 0) {
+                    sendData(res, results);    
+                } else {
+                    sendData(res, {});  
+                }    
+            } else if (method === "add") {
+                //...
+            }
+        } catch (err) {
+            console.log(err.stack);
+        }
+        finally {
+            await client.close();
+        }
+    }
+    ```
