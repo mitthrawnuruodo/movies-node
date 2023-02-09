@@ -50,20 +50,20 @@ Example-project for making a very basic NodeJS + MongoDB app with and API to a m
     ```
 1. Add a test movie: 
     ```js
-        // Add a test-movie, if it doesn't exist using updateOne
-        const filter = { title: "True Romance" };
-        const movie = {
-            $set: {
-                title: "True Romance", 
-                year: 1993, 
-                imdb_url: "https://www.imdb.com/title/tt0108399/",
-                rt_url: "https://www.rottentomatoes.com/m/true_romance",
-                rating: 6    
-            }
-        };
-        const options = { upsert: true };
-        const result = await col.updateOne(filter, movie, options);
-        console.log(`${result.matchedCount} document(s) matched the filter`);
+            // Add a test-movie, if it doesn't exist using updateOne
+            const filter = { title: "True Romance" };
+            const movie = {
+                $set: {
+                    title: "True Romance", 
+                    year: 1993, 
+                    imdb_url: "https://www.imdb.com/title/tt0108399/",
+                    rt_url: "https://www.rottentomatoes.com/m/true_romance",
+                    rating: 6    
+                }
+            };
+            const options = { upsert: true };
+            const result = await col.updateOne(filter, movie, options);
+            console.log(`${result.matchedCount} document(s) matched the filter`);
     ```
 1. Re-run, and check Atlas to see the new (?) Database `node_testing` with a new (?) collection `movies` that contains (at least) one movie: "True Romance"
 
