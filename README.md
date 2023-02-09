@@ -7,8 +7,7 @@ Example-project for making a very basic NodeJS + MongoDB app.
 1. Install mongodb: `npm i mongodb --save-dev`
 1. Add start-script to package.json: `"start": "node app.js"` (for later use)
 1. Sign up for [MongoDB Atlas](https://www.mongodb.com/atlas) with GitHub (or your preferred method), and make a cluster and (at least one DB user)
-1. Add starter code to a test file `listMovies.js`:
-    * Replace `<username>`, `<password>`, and `<cluster.hash>` with your own, you'll find the `uri` (sans Password) on Atlas under `Database Deployments` > `<Your Cluster>` > `Connect` > `Connect your application`:
+1. Before we get started, let's try out the database-connection. Add this starter code to a test file `listMovies.js`:
     ```js
     const { MongoClient, ServerApiVersion } = require('mongodb');
 
@@ -31,6 +30,9 @@ Example-project for making a very basic NodeJS + MongoDB app.
 
     run().catch(console.dir);
     ```
+    > Replace `<username>`, `<password>`, and `<cluster.hash>` with your own, you'll find the `uri` (sans Password) on Atlas under `Database Deployments` > `<Your Cluster>` > `Connect` > `Connect your application`
+    >
+    > **NOTE**: Make a non-admin database user (that can be discarded), for this project, or protect your login-URI.
 1. Run the code, using `node listMovies.js`
     * Make sure you get `Connected correctly to server` on the console
 1. Add database details: 
@@ -58,7 +60,8 @@ Example-project for making a very basic NodeJS + MongoDB app.
         const result = await col.updateOne(filter, movie, options);
         console.log(`${result.matchedCount} document(s) matched the filter`);
     ```
-1. Re-run, and check Atlas to see the new (?) Database `node_testing` with a new (?) collection `movies` that contains (at least) one movie.
+1. Re-run, and check Atlas to see the new (?) Database `node_testing` with a new (?) collection `movies` that contains (at least) one movie: "True Romance"
+---
 1. Now, we'll make a new file `app.js` some JSON output.
 1. Add requirements, and local variables: 
     ```js
@@ -81,12 +84,14 @@ Example-project for making a very basic NodeJS + MongoDB app.
     ```js
     const server = http.createServer((req, res) => {
         let reqUrlString = req.url;
+        let path = url.parse(reqUrlString, true).pathname;
+        //console.log({reqUrlString, path});
 
-        if (reqUrlString === "/") {
+        if (path === "/") {
             sendData (res, "Use endpoints GET /list or POST /add");
-        } else if (reqUrlString === "/list") {
+        } else if (path === "/list") {
             sendData (res, "Will list all movies");
-        } else if (reqUrlString === "/add") {
+        } else if (path === "/add") {
             let method = req.method;
             if (method === "POST" || method === "PUT") {
                 sendData (res, "Will add movie, if data object is posted correctly");
@@ -94,12 +99,11 @@ Example-project for making a very basic NodeJS + MongoDB app.
                 sendData (res, "You need to use POST (or PUT) here..."); 
             }
         } else {
-            sendData (res, { 404: "Not found"});
+            sendData (res, { 404: path});
         }
     });
     ```
-
----
-
-Tip: You can use [Postman](https://www.postman.com/product/what-is-postman/) to send post requests to localhost: 
-![](./resources/postman-localhost.png)
+1. Now run the app with `npm start`, and test with a few GET and POST requests.
+    > Tip: You can use [Postman](https://www.postman.com/product/what-is-postman/) to send post requests to localhost: 
+    ![](./resources/postman-localhost.png)
+1. 

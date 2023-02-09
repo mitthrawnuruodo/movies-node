@@ -17,12 +17,14 @@ let sendData = (res, body) => {
 
 const server = http.createServer((req, res) => {
     let reqUrlString = req.url;
+    let path = url.parse(reqUrlString, true).pathname;
+    //console.log({reqUrlString, path});
 
-    if (reqUrlString === "/") {
+    if (path === "/") {
         sendData (res, "Use endpoints GET /list or POST /add");
-    } else if (reqUrlString === "/list") {
+    } else if (path === "/list") {
         sendData (res, "Will list all movies");
-    } else if (reqUrlString === "/add") {
+    } else if (path === "/add") {
         let method = req.method;
         if (method === "POST" || method === "PUT") {
             sendData (res, "Will add movie, if data object is posted correctly");
@@ -30,7 +32,7 @@ const server = http.createServer((req, res) => {
             sendData (res, "You need to use POST (or PUT) here..."); 
         }
     } else {
-        sendData (res, { 404: reqUrlString});
+        sendData (res, { 404: path});
     }
 });
 
